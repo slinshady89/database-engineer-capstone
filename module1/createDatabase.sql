@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `littlelemondb`.`MenuItems` (
   `MenuItemID` INT NOT NULL AUTO_INCREMENT,
   `Starters` VARCHAR(255) NULL,
-  `Courser` VARCHAR(255) NULL,
+  `Course` VARCHAR(255) NULL,
   `Desserts` VARCHAR(255) NULL,
   `Drinks` VARCHAR(255) NULL,
   PRIMARY KEY (`MenuItemID`))
@@ -137,6 +137,21 @@ CREATE TABLE IF NOT EXISTS `littlelemondb`.`Bookings` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `littlelemondb` ;
+
+-- -----------------------------------------------------
+-- Placeholder table for view `littlelemondb`.`OrdersView`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `littlelemondb`.`OrdersView` (`OrderID` INT, `Quantity` INT, `Cost` INT);
+
+-- -----------------------------------------------------
+-- View `littlelemondb`.`OrdersView`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `littlelemondb`.`OrdersView`;
+USE `littlelemondb`;
+CREATE  OR REPLACE VIEW `OrdersView` AS
+SELECT OrderID, Quantity, TotalCost as Cost FROM littlelemondb.orders
+where quantity > 2;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
